@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Febriyeni Susi - Coal Mining Production</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Febriyeni Susi - Coal Mining Production Metrics</h1>
+
+    <div class="toolbar">
+        <a href="{{ url_for('etl_endpoint') }}" class="button">🔃 Run Data Pipeline Again</a>
+    </div>
+
+    {% if table %}
+    <table>
+        <thead>
+            <tr>
+                {% for key in table[0].keys() %}
+                    <th>{{ key.replace('_', ' ').title() }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in table %}
+            <tr>
+                {% for value in row.values() %}
+                    <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No data loaded yet. Click “Run Data Pipeline” above.</p>
+    {% endif %}
+
+    {% if corr is not none and p is not none %}
+    <div class="summary">
+        <h3>🌤️ Weather Impact Insights</h3>
+        <p><strong>Rainfall vs. Production Correlation:</strong> {{ corr }}</p>
+        <p><strong>P-value:</strong> {{ p }}</p>
+    </div>
+    {% endif %}
+
+    {% if forecast is not none %}
+    <div class="summary">
+        <h3>🌐 Trend Projection</h3>
+        <p><strong>Predicted Production for Next Day:</strong> {{ forecast }} tons</p>
+    </div>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,55 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpwd
+      MYSQL_DATABASE: coal_mining
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./flask_app/production_logs.sql:/docker-entrypoint-initdb.d/init.sql
+      - mysql-data:/var/lib/mysql
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    environment:
+      - CLICKHOUSE_USER=default
+      - CLICKHOUSE_PASSWORD=clickhousepwd
+      - CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT=1
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    volumes:
+      - clickhouse-data:/var/lib/clickhouse
+
+  web:
+    build: ./flask_app
+    container_name: flask-web
+    volumes:
+      - ./flask_app:/app
+      - ./flask_app/data:/app/data
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mysql
+      - clickhouse
+
+  metabase:
+    image: metabase/metabase
+    container_name: metabase
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+      - clickhouse
+    environment:
+      MB_DB_TYPE: h2
+      MB_DB_FILE: /metabase-data/metabase.db
+    volumes:
+      - metabase-data:/metabase-data
+
+volumes:
+  mysql-data:
+  clickhouse-data:
+  metabase-data:

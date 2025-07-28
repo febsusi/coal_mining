@@ -1,0 +1,8 @@
+Flask
+clickhouse-connect
+pymysql
+pandas
+requests
+scipy
+cryptography
+statsmodels
