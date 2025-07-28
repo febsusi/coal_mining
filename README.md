@@ -1,7 +1,7 @@
 # Coal Mining ETL Dashboard Project for AI Engineer - Synapsis (Febriyeni Susi)
 
 This project provides a complete ETL (Extract, Transform, Load) data pipeline and a dashboard visualization for coal mining operations. 
-The goal is to monitor production performance, equipment usage, and analyze the impact of weather on daily coal output using modern open-source tools.
+The goal is to monitor production performance, equipment usage, and analyze the impact of weather on daily coal output.
 
 ## Features
 
