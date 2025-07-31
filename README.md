@@ -1,4 +1,4 @@
-# Coal Mining ETL Project for AI Engineer (Data Warehouse) (Febriyeni Susi)
+# Coal Mining ETL Project for AI Engineer (Data Warehouse) - Febriyeni Susi
 
 This project provides a complete ETL (Extract, Transform, Load) data pipeline and a dashboard visualization for coal mining operations. 
 The goal is to monitor production performance, equipment usage, and analyze the impact of weather on daily coal output.
